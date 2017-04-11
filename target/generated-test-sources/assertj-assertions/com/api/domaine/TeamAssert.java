@@ -12,8 +12,7 @@ public class TeamAssert extends AbstractAssert<TeamAssert, Team> {
    * Creates a new <code>{@link TeamAssert}</code> to make assertions on actual Team.
    * @param actual the Team we want to make assertions on.
    */
-  public TeamAssert(Team actual) {
-    super(actual, TeamAssert.class);
+  public TeamAssert(Team actual) { super (actual, TeamAssert.class);
   }
 
   /**

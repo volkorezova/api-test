@@ -43,7 +43,7 @@ public class SignInTest {
                 .response()
                 .prettyPrint();
 
-    } o
+    }
        @Test
        public void Test_02(){
         RestAssured.given().get("/team?skip=0").then().extract().response().prettyPrint();
