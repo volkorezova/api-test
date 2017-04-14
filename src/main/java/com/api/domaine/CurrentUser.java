@@ -26,7 +26,7 @@ public class CurrentUser {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap();
 
-    public CurrentUser() {
+   public CurrentUser() {
     }
 
     public CurrentUser(String token, User user, Team team, List<String> rosterPositions) {
@@ -37,9 +37,7 @@ public class CurrentUser {
     }
 
     @JsonProperty("token")
-    public String getToken() {
-        return this.token;
-    }
+    public String getToken() { return this.token;}
 
     @JsonProperty("token")
     public void setToken(String token) {

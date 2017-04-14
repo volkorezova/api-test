@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="LiftAPI" />
         <module name="LiftSyncAPI" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="LiftAPI" target="1.5" />
       <module name="LiftSyncAPI" target="1.5" />
     </bytecodeTargetLevel>
   </component>

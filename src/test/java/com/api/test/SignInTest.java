@@ -1,97 +1,133 @@
 package com.api.test;
 
-import com.api.domaine.User;
-import com.api.domaine.assertions.UserAssert;
-import io.restassured.RestAssured;
-import org.testng.annotations.BeforeClass;
+import com.api.domaine.Credentials.CredentialsForSignIn;
+import com.api.domaine.CurrentUser;
+import com.api.domaine.UserUpdateCredentials;
+import com.api.domaine.api.SignInApi;
+import com.api.domaine.assertions.CurrentUserAssert;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Attachment;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
-import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
-import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.testng.Assert.assertEquals;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 
-
-
+@Title("These test-suite check various errors and functionality of SIGN IN process")
 public class SignInTest {
-    @BeforeClass
-            public void setup(){
-
-        RestAssured.baseURI = "http://35.163.170.147:3000/";
-        RestAssured.basePath = "v";
 
 
 
 
+    @Severity(SeverityLevel.BLOCKER)
+    @Title("Test checks the user response is not NULL")
+    @Test
+    public void TestCanRetrieveUserOnSignIn() {
+
+        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
+        CurrentUser currentUser = SignInApi.signInAs(credentials);
+        CurrentUserAssert.assertThat(currentUser).isNotNull();
     }
 
+    /*@Test
+    public void TestSchemaCurUser() {
 
 
-
-
-    String myBody = "{\"email\":\"volkorezova@mail.com\",\"password\":\"12345}";
-
-    @Test
-    public void Test_01() {
-        RestAssured.given()
+        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
+        given()
                 .contentType("application/json")
-                .body(myBody)
+                .body(credentials)
                 .when()
-                .post("/signin")
+                .post("http://35.163.170.147:3000/v1/signin").then().assertThat().body(matchesJsonSchemaInClasspath("user-schema.json"));
+
+    }*/
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Test checks the error msg on invalid EMAIL(email is not associated with any account")
+    @Test
+    public void TestGetErrorOnIsNotAssociateEmail(){
+
+        CredentialsForSignIn credentials = new CredentialsForSignIn("email@qqq.com", "1234456");
+        given().log().all()
+                .contentType("application/json")
+                .body(credentials)
+                .when()
+                .post("http://35.163.170.147:3000/v1/signin")
+                .then().log().all()
+                .assertThat()
+                .statusCode(401)
+                .and().assertThat().body("message",equalTo("Invalid email"));
+
+
+    }
+
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Test checks the error msg on invalid EMAIL(invalid format)")
+    @Test
+    public void TestGetErrorOnInvalEmail(){
+        CredentialsForSignIn credentials = new CredentialsForSignIn("emailqqq.com", "1234456");
+        given().log().all()
+                .contentType("application/json")
+                .body(credentials)
+                .when()
+                .post("http://35.163.170.147:3000/v1/signin")
+                .then().log().all()
+                .assertThat()
+                .statusCode(401)
+                .and().assertThat().body("message",equalTo("Invalid email"));
+
+    }
+
+    @Attachment(value = "{TEST ATTACHHMENT}", type = "text/json")
+    @Severity(SeverityLevel.NORMAL)
+    @Title("Test checks the error msg on invalid PASSWORD")
+    @Test
+    public void TestGetErrorOnInvalidPassword(){
+        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12344561111");
+        given().log().all()
+                .contentType("application/json")
+                .body(credentials)
+                .when()
+                .post("http://35.163.170.147:3000/v1/signin")
                 .then()
-                .extract()
-                .response()
-                .prettyPrint();
+                .assertThat()
+                .statusCode(401)
+                .and().assertThat().body("message",equalTo("Invalid passwordrreeghjjrkygvlhbjnlkml"));
 
     }
-       @Test
-       public void Test_02(){
-        RestAssured.given().get("/team?skip=0").then().extract().response().prettyPrint();
 
 
-        }
-
+    //@Attachment(value = "")
+    @Severity(SeverityLevel.CRITICAL)
+    @Title("Test checks updating user on the end stage of SIGN IN process - neverUpdate field and status code")
     @Test
-    public void testName() throws Exception {
-    }
-
-    @Test
-    public void Test_03(){
-            User curUser = when()
-                    .post("/signin")
-                    .then()
-                    .statusCode(200)
-                    .extract()
-                    .body()
-                    .as(User.class);
-
-            System.out.println(curUser);
-
-            assertEquals(curUser.getEmail(),"email");
-
-            UserAssert.assertThat(curUser).hasId("eh837i4ythn").hasAccessLevel(1).hasFirstName("ksbdfzc");
+    public void TestUserUpdated() {
+        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
+        CurrentUser currentUser = SignInApi.signInAs(credentials);
+        String token = currentUser.getToken().toString();
+        UserUpdateCredentials never = new UserUpdateCredentials(true);
 
 
-        }
+         given()
+                .contentType("application/json")
+                .header("Authorization","Bearer "+token)
+                .body(never)
+                .when()
+                .put("http://35.163.170.147:3000/v1/profile")
+                .then()
+                .assertThat()
+                .statusCode(200);
 
-        @Test
-    public void Test_04(){
-            User curUser = (User) given()
-                    .contentType("application/json")
-                    .body(myBody)
-                    .when()
-                    .post("/signin"). then().statusCode(200)
-                    .body(matchesJsonSchemaInClasspath("user-schema.json"));
-
-        }
-
-        @Test
-    public void Test_auth(){
-
-        User auth = (User) given().auth().basic("volkorezova@mail.com","12345").when().post("/signin").then().statusCode(200);
+        //.and().assertThat().extract().as(UserUpdated.Data.class).getNeverUpdated().equals(true);
 
 
-        }
+                 //("neverUpdated", equalTo(true));
+                //.and()
+                //.extract()
+//                .as(UserUpdated.Data.class).getNeverUpdated().compareTo(true);
+
 
 
 
@@ -102,5 +138,10 @@ public class SignInTest {
 
 
     }
+}
+
+
+
+
 
 
