@@ -87,8 +87,9 @@ public class Datum {
      * @param birthDate
      * @param firstName
      */
+
     public Datum(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String type, Boolean neverUpdated, String photo, Integer age) {
-        super();
+
         this.id = id;
         this.username = username;
         this.email = email;

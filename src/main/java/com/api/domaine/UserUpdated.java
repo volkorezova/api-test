@@ -22,8 +22,9 @@ public class UserUpdated {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 
+    public UserUpdated(){}
     public UserUpdated(String code, Data data) {
-        super();
+
         this.code = code;
         this.data = data;
     }
@@ -121,9 +122,10 @@ public class UserUpdated {
         @JsonIgnore
         private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+        public Data(){}
 
         public Data(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String photo, String type, Boolean neverUpdated) {
-            super();
+
             this.id = id;
             this.username = username;
             this.email = email;

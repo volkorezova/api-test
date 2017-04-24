@@ -19,7 +19,7 @@ public class ResetPassTest {
     @Title("Can reset password 200 OK")
     @Severity(SeverityLevel.BLOCKER)
     @Test
-    public void CanResetPassword() {
+    public void testCanResetPassword() {
 
         CredentialsForResetPass credentialsRes = new CredentialsForResetPass("volkorezova@mail.com");
         given()
@@ -34,10 +34,10 @@ public class ResetPassTest {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Get error message on invalid email when try to reset password")
+    @Title("Get error message on invalid emamvn il when try to reset password")
     @Description("Check the process of reset password - email is not associated with any account")
     @Test
-    public void GetErrorOnInvalidEmailResetPass(){
+    public void testGetErrorOnInvalidEmailResetPass(){
 
         CredentialsForResetPass credentialsRes = new CredentialsForResetPass("vol@mai.com");
         given()

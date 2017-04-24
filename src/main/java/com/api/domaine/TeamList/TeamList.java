@@ -35,7 +35,7 @@ public class TeamList {
      * @param code
      */
     public TeamList(String code, List<Datum> data) {
-        super();
+
         this.code = code;
         this.data = data;
     }
