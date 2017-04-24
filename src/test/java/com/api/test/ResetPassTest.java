@@ -7,6 +7,7 @@ import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
 
+import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -33,6 +34,9 @@ public class ResetPassTest {
                 .and().assertThat().body("code", equalTo("OK"));
     }
 
+
+
+
     @Severity(SeverityLevel.CRITICAL)
     @Title("Get error message on invalid emamvn il when try to reset password")
     @Description("Check the process of reset password - email is not associated with any account")
@@ -52,4 +56,19 @@ public class ResetPassTest {
 
     }
 
+
+    @Test
+    public void testValidateUserSchemaOnResetPassword(){
+
+        CredentialsForResetPass credentialsRes = new CredentialsForResetPass("volkorezova@mail.com");
+        given()
+                .contentType("application/json")
+                .body(credentialsRes)
+                .when()
+                .post("http://35.163.170.147:3000/v1/auth/reset")
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("schema-validator/userONreset-schema.json"));
+
+    }
 }

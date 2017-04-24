@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "code": {
+      "id": "/properties/code",
+      "type": "string"
+    },
+    "data": {
+      "id": "/properties/data",
+      "properties": {
+        "__v": {
+          "id": "/properties/data/properties/__v",
+          "type": "integer"
+        },
+        "_id": {
+          "id": "/properties/data/properties/_id",
+          "type": "string"
+        },
+        "accessLevel": {
+          "id": "/properties/data/properties/accessLevel",
+          "type": "integer"
+        },
+        "birthDate": {
+          "id": "/properties/data/properties/birthDate",
+          "type": "string"
+        },
+        "client": {
+          "id": "/properties/data/properties/client",
+          "type": "string"
+        },
+        "email": {
+          "id": "/properties/data/properties/email",
+          "type": "string"
+        },
+        "firstName": {
+          "id": "/properties/data/properties/firstName",
+          "type": "string"
+        },
+        "height": {
+          "id": "/properties/data/properties/height",
+          "type": "integer"
+        },
+        "lastName": {
+          "id": "/properties/data/properties/lastName",
+          "type": "string"
+        },
+        "neverUpdated": {
+          "id": "/properties/data/properties/neverUpdated",
+          "type": "boolean"
+        },
+        "photo": {
+          "id": "/properties/data/properties/photo",
+          "type": "string"
+        },
+        "rosterPosition": {
+          "id": "/properties/data/properties/rosterPosition",
+          "type": "string"
+        },
+        "type": {
+          "id": "/properties/data/properties/type",
+          "type": "string"
+        },
+        "username": {
+          "id": "/properties/data/properties/username",
+          "type": "string"
+        },
+        "weight": {
+          "id": "/properties/data/properties/weight",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

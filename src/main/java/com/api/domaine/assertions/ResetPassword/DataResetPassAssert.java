@@ -1,6 +1,5 @@
 package com.api.domaine.assertions.ResetPassword;
 
-import com.api.domaine.ResetPassword.DataResetPass;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.util.Objects;
 

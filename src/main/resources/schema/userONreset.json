@@ -1,0 +1,20 @@
+{
+  "code": "OK",
+  "data": {
+    "_id": "58c80b72d375ca58232d6f48",
+    "username": "Tatyana Volkorezova",
+    "email": "volkorezova@mail.com",
+    "firstName": "атлет",
+    "lastName": "Volk",
+    "accessLevel": 10,
+    "birthDate": "2017-03-13",
+    "height": 105,
+    "weight": 520,
+    "client": "58b3e300be2685491cdb2283",
+    "rosterPosition": "Tank",
+    "__v": 0,
+    "photo": "http://res.cloudinary.com/dpbpxszyr/image/upload/v1489510266/na8wpvsgfha2vkuuc63s.jpg",
+    "type": "athlete",
+    "neverUpdated": true
+  }
+}

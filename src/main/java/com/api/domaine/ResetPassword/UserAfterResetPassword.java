@@ -1,9 +1,16 @@
 package com.api.domaine.ResetPassword;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude;package com.api.test;
 
-import java.util.HashMap;
-import java.util.Map;
+        import java.util.HashMap;
+        import java.util.Map;
+        import com.fasterxml.jackson.annotation.JsonAnyGetter;
+        import com.fasterxml.jackson.annotation.JsonAnySetter;
+        import com.fasterxml.jackson.annotation.JsonIgnore;
+        import com.fasterxml.jackson.annotation.JsonInclude;
+        import com.fasterxml.jackson.annotation.JsonProperty;
+        import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+        import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -23,7 +30,7 @@ import java.util.Map;
         "type",
         "neverUpdated"
 })
-public class DataResetPass {
+class Data {
 
     @JsonProperty("_id")
     private String id;
@@ -62,7 +69,7 @@ public class DataResetPass {
      * No args constructor for use in serialization
      *
      */
-    public DataResetPass() {
+    public Data() {
     }
 
     /**
@@ -83,8 +90,8 @@ public class DataResetPass {
      * @param birthDate
      * @param firstName
      */
-    public DataResetPass(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String photo, String type, Boolean neverUpdated) {
-        super();
+    public Data(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String photo, String type, Boolean neverUpdated) {
+
         this.id = id;
         this.username = username;
         this.email = email;
@@ -250,6 +257,81 @@ public class DataResetPass {
     @JsonProperty("neverUpdated")
     public void setNeverUpdated(Boolean neverUpdated) {
         this.neverUpdated = neverUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
+}
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "code",
+        "data"
+})
+class Reset {
+
+    @JsonProperty("code")
+    private String code;
+    @JsonProperty("data")
+    private Data data;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Reset() {
+    }
+
+    /**
+     *
+     * @param data
+     * @param code
+     */
+    public Reset(String code, Data data) {
+
+        this.code = code;
+        this.data = data;
+    }
+
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    @JsonProperty("code")
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @JsonProperty("data")
+    public Data getData() {
+        return data;
+    }
+
+    @JsonProperty("data")
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter
