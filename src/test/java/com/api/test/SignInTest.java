@@ -6,6 +6,8 @@ import com.api.domaine.UserUpdateCredentials;
 import com.api.domaine.UserUpdated;
 import com.api.domaine.api.SignInApi;
 import com.api.domaine.assertions.CurrentUserAssert;
+import io.restassured.RestAssured;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -19,6 +21,12 @@ import static org.testng.Assert.assertTrue;
 
 @Title("These test-suite check various errors and functionality of SIGN IN process")
 public class SignInTest {
+
+    @BeforeClass
+    public void setup(){
+        RestAssured.baseURI = "http://35.163.170.147:3000/";
+        RestAssured.basePath = "v1";
+    }
 
 
     @Severity(SeverityLevel.BLOCKER)
@@ -47,7 +55,7 @@ public class SignInTest {
                 .contentType("application/json")
                 .body(credentials)
                 .when()
-                .post("http://35.163.170.147:3000/v1/signin")
+                .post("/signin")
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/user-schema.json"));
@@ -65,7 +73,7 @@ public class SignInTest {
                 .contentType("application/json")
                 .body(credentials)
                 .when()
-                .post("http://35.163.170.147:3000/v1/signin")
+                .post("/signin")
                 .then().log().all()
                 .assertThat()
                 .statusCode(401)
@@ -84,7 +92,7 @@ public class SignInTest {
                 .contentType("application/json")
                 .body(credentials)
                 .when()
-                .post("http://35.163.170.147:3000/v1/signin")
+                .post("/signin")
                 .then().log().all()
                 .assertThat()
                 .statusCode(401)
@@ -105,7 +113,7 @@ public class SignInTest {
                 .contentType("application/json")
                 .body(credentials)
                 .when()
-                .post("http://35.163.170.147:3000/v1/signin")
+                .post("/signin")
                 .then()
                 .assertThat()
                 .statusCode(401)
@@ -130,7 +138,7 @@ public class SignInTest {
                 .header("Authorization", "Bearer " + token)
                 .body(never)
                 .when()
-                .put("http://35.163.170.147:3000/v1/profile")
+                .put("/profile")
                 .then()
                 .assertThat()
                 .statusCode(200)

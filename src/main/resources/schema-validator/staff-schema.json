@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "code": {
+      "id": "/properties/code",
+      "type": "string"
+    },
+    "data": {
+      "id": "/properties/data",
+      "items": {
+        "id": "/properties/data/items",
+        "properties": {
+          "__v": {
+            "id": "/properties/data/items/properties/__v",
+            "type": "integer"
+          },
+          "_id": {
+            "id": "/properties/data/items/properties/_id",
+            "type": "string"
+          },
+          "accessLevel": {
+            "id": "/properties/data/items/properties/accessLevel",
+            "type": "integer"
+          },
+          "client": {
+            "id": "/properties/data/items/properties/client",
+            "type": "string"
+          },
+          "email": {
+            "id": "/properties/data/items/properties/email",
+            "type": "string"
+          },
+          "firstName": {
+            "id": "/properties/data/items/properties/firstName",
+            "type": "string"
+          },
+          "lastName": {
+            "id": "/properties/data/items/properties/lastName",
+            "type": "string"
+          },
+          "neverUpdated": {
+            "id": "/properties/data/items/properties/neverUpdated",
+            "type": "boolean"
+          },
+          "phoneNumber": {
+            "id": "/properties/data/items/properties/phoneNumber",
+            "type": "string"
+          },
+          "photo": {
+            "id": "/properties/data/items/properties/photo",
+            "type": "string"
+          },
+          "rosterPosition": {
+            "id": "/properties/data/items/properties/rosterPosition",
+            "type": "string"
+          },
+          "type": {
+            "id": "/properties/data/items/properties/type",
+            "type": "string"
+          },
+          "username": {
+            "id": "/properties/data/items/properties/username",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

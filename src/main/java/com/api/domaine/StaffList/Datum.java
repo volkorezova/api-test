@@ -1,11 +1,10 @@
-package com.api.domaine.ResetPassword;
+package com.api.domaine.StaffList;
 
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,18 +13,17 @@ import java.util.Map;
         "email",
         "firstName",
         "lastName",
-        "accessLevel",
-        "birthDate",
-        "height",
-        "weight",
         "client",
         "rosterPosition",
         "__v",
+        "accessLevel",
+        "phoneNumber",
         "photo",
         "type",
-        "neverUpdated"
+        "neverUpdated",
+        "role"
 })
-public class Data {
+public class Datum {
 
     @JsonProperty("_id")
     private String id;
@@ -37,69 +35,65 @@ public class Data {
     private String firstName;
     @JsonProperty("lastName")
     private String lastName;
-    @JsonProperty("accessLevel")
-    private Integer accessLevel;
-    @JsonProperty("birthDate")
-    private String birthDate;
-    @JsonProperty("height")
-    private Integer height;
-    @JsonProperty("weight")
-    private Integer weight;
     @JsonProperty("client")
     private String client;
     @JsonProperty("rosterPosition")
     private String rosterPosition;
     @JsonProperty("__v")
     private Integer v;
+    @JsonProperty("accessLevel")
+    private Integer accessLevel;
+    @JsonProperty("phoneNumber")
+    private String phoneNumber;
     @JsonProperty("photo")
     private String photo;
     @JsonProperty("type")
     private String type;
     @JsonProperty("neverUpdated")
     private Boolean neverUpdated;
+    @JsonProperty("role")
+    private String role;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * No args constructor for use in serialization
      */
-    public Data() {
+    public Datum() {
     }
 
     /**
+     * @param id
+     * @param v
      * @param lastName
-     * @param weight
+     * @param username
+     * @param phoneNumber
      * @param client
+     * @param email
+     * @param rosterPosition
+     * @param role
      * @param type
+     * @param firstName
      * @param photo
      * @param accessLevel
      * @param neverUpdated
-     * @param id
-     * @param v
-     * @param username
-     * @param height
-     * @param email
-     * @param rosterPosition
-     * @param birthDate
-     * @param firstName
      */
-    public Data(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String photo, String type, Boolean neverUpdated) {
-
+    public Datum(String id, String username, String email, String firstName, String lastName, String client, String rosterPosition, Integer v, Integer accessLevel, String phoneNumber, String photo, String type, Boolean neverUpdated, String role) {
+        super();
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accessLevel = accessLevel;
-        this.birthDate = birthDate;
-        this.height = height;
-        this.weight = weight;
         this.client = client;
         this.rosterPosition = rosterPosition;
         this.v = v;
+        this.accessLevel = accessLevel;
+        this.phoneNumber = phoneNumber;
         this.photo = photo;
         this.type = type;
         this.neverUpdated = neverUpdated;
+        this.role = role;
     }
 
     @JsonProperty("_id")
@@ -152,46 +146,6 @@ public class Data {
         this.lastName = lastName;
     }
 
-    @JsonProperty("accessLevel")
-    public Integer getAccessLevel() {
-        return accessLevel;
-    }
-
-    @JsonProperty("accessLevel")
-    public void setAccessLevel(Integer accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
-    @JsonProperty("birthDate")
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    @JsonProperty("birthDate")
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    @JsonProperty("height")
-    public Integer getHeight() {
-        return height;
-    }
-
-    @JsonProperty("height")
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    @JsonProperty("weight")
-    public Integer getWeight() {
-        return weight;
-    }
-
-    @JsonProperty("weight")
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
     @JsonProperty("client")
     public String getClient() {
         return client;
@@ -220,6 +174,26 @@ public class Data {
     @JsonProperty("__v")
     public void setV(Integer v) {
         this.v = v;
+    }
+
+    @JsonProperty("accessLevel")
+    public Integer getAccessLevel() {
+        return accessLevel;
+    }
+
+    @JsonProperty("accessLevel")
+    public void setAccessLevel(Integer accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
+    @JsonProperty("phoneNumber")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty("phoneNumber")
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @JsonProperty("photo")
@@ -252,6 +226,16 @@ public class Data {
         this.neverUpdated = neverUpdated;
     }
 
+    @JsonProperty("role")
+    public String getRole() {
+        return role;
+    }
+
+    @JsonProperty("role")
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
@@ -268,5 +252,3 @@ public class Data {
     }
 
 }
-
-

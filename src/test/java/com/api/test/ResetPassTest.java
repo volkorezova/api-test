@@ -1,6 +1,8 @@
 package com.api.test;
 
 import com.api.domaine.Credentials.CredentialsForResetPass;
+import io.restassured.RestAssured;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Severity;
@@ -16,6 +18,12 @@ import static org.hamcrest.core.IsEqual.equalTo;
  */
 public class ResetPassTest {
 
+    @BeforeClass
+    public void setup(){
+        RestAssured.baseURI = "http://35.163.170.147:3000/";
+        RestAssured.basePath = "v1";
+    }
+
     @Description("Test can reset password - check the status code 200")
     @Title("Can reset password 200 OK")
     @Severity(SeverityLevel.BLOCKER)
@@ -27,7 +35,7 @@ public class ResetPassTest {
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
-                .post("http://35.163.170.147:3000/v1/auth/reset")
+                .post("/auth/reset")
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -48,7 +56,7 @@ public class ResetPassTest {
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
-                .post("http://35.163.170.147:3000/v1/auth/reset")
+                .post("/auth/reset")
                 .then()
                 .assertThat()
                 .statusCode(400)
@@ -65,7 +73,7 @@ public class ResetPassTest {
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
-                .post("http://35.163.170.147:3000/v1/auth/reset")
+                .post("/auth/reset")
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/userONreset-schema.json"));
