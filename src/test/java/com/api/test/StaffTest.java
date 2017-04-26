@@ -1,9 +1,9 @@
 package com.api.test;
 
-import com.api.domaine.Credentials.CredentialsForSignIn;
-import com.api.domaine.StaffList.StaffList;
+import com.api.domaine.credentials.CredentialsForSignIn;
+import com.api.domaine.staffList.StaffList;
 import com.api.domaine.api.SignInApi;
-import com.api.domaine.assertions.StaffList.DatumAssert;
+import com.api.domaine.assertions.staffList.DatumAssert;
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

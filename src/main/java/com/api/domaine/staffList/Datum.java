@@ -1,6 +1,7 @@
-package com.api.domaine.TeamList;
+package com.api.domaine.staffList;
 
 import com.fasterxml.jackson.annotation.*;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,17 +13,15 @@ import java.util.Map;
         "email",
         "firstName",
         "lastName",
-        "accessLevel",
-        "birthDate",
-        "height",
-        "weight",
         "client",
         "rosterPosition",
         "__v",
+        "accessLevel",
+        "phoneNumber",
+        "photo",
         "type",
         "neverUpdated",
-        "photo",
-        "age"
+        "role"
 })
 public class Datum {
 
@@ -36,76 +35,65 @@ public class Datum {
     private String firstName;
     @JsonProperty("lastName")
     private String lastName;
-    @JsonProperty("accessLevel")
-    private Integer accessLevel;
-    @JsonProperty("birthDate")
-    private String birthDate;
-    @JsonProperty("height")
-    private Integer height;
-    @JsonProperty("weight")
-    private Integer weight;
     @JsonProperty("client")
     private String client;
     @JsonProperty("rosterPosition")
     private String rosterPosition;
     @JsonProperty("__v")
     private Integer v;
+    @JsonProperty("accessLevel")
+    private Integer accessLevel;
+    @JsonProperty("phoneNumber")
+    private String phoneNumber;
+    @JsonProperty("photo")
+    private String photo;
     @JsonProperty("type")
     private String type;
     @JsonProperty("neverUpdated")
     private Boolean neverUpdated;
-    @JsonProperty("photo")
-    private String photo;
-    @JsonProperty("age")
-    private Integer age;
+    @JsonProperty("role")
+    private String role;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Datum() {
     }
 
     /**
-     *
+     * @param id
+     * @param v
      * @param lastName
-     * @param weight
+     * @param username
+     * @param phoneNumber
      * @param client
+     * @param email
+     * @param rosterPosition
+     * @param role
      * @param type
+     * @param firstName
      * @param photo
      * @param accessLevel
      * @param neverUpdated
-     * @param id
-     * @param v
-     * @param username
-     * @param height
-     * @param email
-     * @param age
-     * @param rosterPosition
-     * @param birthDate
-     * @param firstName
      */
-
-    public Datum(String id, String username, String email, String firstName, String lastName, Integer accessLevel, String birthDate, Integer height, Integer weight, String client, String rosterPosition, Integer v, String type, Boolean neverUpdated, String photo, Integer age) {
-
+    public Datum(String id, String username, String email, String firstName, String lastName, String client, String rosterPosition, Integer v, Integer accessLevel, String phoneNumber, String photo, String type, Boolean neverUpdated, String role) {
+        super();
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accessLevel = accessLevel;
-        this.birthDate = birthDate;
-        this.height = height;
-        this.weight = weight;
         this.client = client;
         this.rosterPosition = rosterPosition;
         this.v = v;
+        this.accessLevel = accessLevel;
+        this.phoneNumber = phoneNumber;
+        this.photo = photo;
         this.type = type;
         this.neverUpdated = neverUpdated;
-        this.photo = photo;
-        this.age = age;
+        this.role = role;
     }
 
     @JsonProperty("_id")
@@ -158,46 +146,6 @@ public class Datum {
         this.lastName = lastName;
     }
 
-    @JsonProperty("accessLevel")
-    public Integer getAccessLevel() {
-        return accessLevel;
-    }
-
-    @JsonProperty("accessLevel")
-    public void setAccessLevel(Integer accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
-    @JsonProperty("birthDate")
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    @JsonProperty("birthDate")
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    @JsonProperty("height")
-    public Integer getHeight() {
-        return height;
-    }
-
-    @JsonProperty("height")
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    @JsonProperty("weight")
-    public Integer getWeight() {
-        return weight;
-    }
-
-    @JsonProperty("weight")
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
     @JsonProperty("client")
     public String getClient() {
         return client;
@@ -228,6 +176,36 @@ public class Datum {
         this.v = v;
     }
 
+    @JsonProperty("accessLevel")
+    public Integer getAccessLevel() {
+        return accessLevel;
+    }
+
+    @JsonProperty("accessLevel")
+    public void setAccessLevel(Integer accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
+    @JsonProperty("phoneNumber")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @JsonProperty("phoneNumber")
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @JsonProperty("photo")
+    public String getPhoto() {
+        return photo;
+    }
+
+    @JsonProperty("photo")
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @JsonProperty("type")
     public String getType() {
         return type;
@@ -248,24 +226,19 @@ public class Datum {
         this.neverUpdated = neverUpdated;
     }
 
-    @JsonProperty("photo")
-    public String getPhoto() {
-        return photo;
+    @JsonProperty("role")
+    public String getRole() {
+        return role;
     }
 
-    @JsonProperty("photo")
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    @JsonProperty("role")
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    @JsonProperty("age")
-    public Integer getAge() {
-        return age;
-    }
-
-    @JsonProperty("age")
-    public void setAge(Integer age) {
-        this.age = age;
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

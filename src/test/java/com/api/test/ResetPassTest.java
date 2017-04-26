@@ -1,6 +1,6 @@
 package com.api.test;
 
-import com.api.domaine.Credentials.CredentialsForResetPass;
+import com.api.domaine.credentials.CredentialsForResetPass;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

@@ -1,6 +1,6 @@
-package com.api.domaine.assertions.Credentials;
+package com.api.domaine.assertions.credentials;
 
-import com.api.domaine.Credentials.CredentialsForSignIn;
+import com.api.domaine.credentials.CredentialsForSignIn;
 import org.assertj.core.api.AbstractAssert;
 
 /**

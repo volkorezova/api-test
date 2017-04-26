@@ -1,6 +1,6 @@
 package com.api.domaine.api;
 
-import com.api.domaine.Credentials.CredentialsForSignIn;
+import com.api.domaine.credentials.CredentialsForSignIn;
 import com.api.domaine.CurrentUser;
 import com.jayway.restassured.RestAssured;
 

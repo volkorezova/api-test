@@ -1,4 +1,4 @@
-package com.api.domaine.Credentials;
+package com.api.domaine.credentials;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

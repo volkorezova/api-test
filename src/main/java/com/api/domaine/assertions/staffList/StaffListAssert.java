@@ -1,7 +1,7 @@
-package com.api.domaine.assertions.StaffList;
+package com.api.domaine.assertions.staffList;
 
-import com.api.domaine.StaffList.Datum;
-import com.api.domaine.StaffList.StaffList;
+import com.api.domaine.staffList.Datum;
+import com.api.domaine.staffList.StaffList;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.internal.Iterables;
 import org.assertj.core.util.Objects;
@@ -12,8 +12,8 @@ import org.assertj.core.util.Objects;
 public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> {
 
   /**
-   * Creates a new <code>{@link StaffListAssert}</code> to make assertions on actual StaffList.
-   * @param actual the StaffList we want to make assertions on.
+   * Creates a new <code>{@link StaffListAssert}</code> to make assertions on actual staffList.
+   * @param actual the staffList we want to make assertions on.
    */
   public StaffListAssert(StaffList actual) {
     super(actual, StaffListAssert.class);
@@ -22,7 +22,7 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   /**
    * An entry point for StaffListAssert to follow AssertJ standard <code>assertThat()</code> statements.<br>
    * With a static import, one can write directly: <code>assertThat(myStaffList)</code> and get specific assertion with code completion.
-   * @param actual the StaffList we want to make assertions on.
+   * @param actual the staffList we want to make assertions on.
    * @return a new <code>{@link StaffListAssert}</code>
    */
   public static StaffListAssert assertThat(StaffList actual) {
@@ -30,13 +30,13 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList's additionalProperties is equal to the given one.
-   * @param additionalProperties the given additionalProperties to compare the actual StaffList's additionalProperties to.
+   * Verifies that the actual staffList's additionalProperties is equal to the given one.
+   * @param additionalProperties the given additionalProperties to compare the actual staffList's additionalProperties to.
    * @return this assertion object.
-   * @throws AssertionError - if the actual StaffList's additionalProperties is not equal to the given one.
+   * @throws AssertionError - if the actual staffList's additionalProperties is not equal to the given one.
    */
   public StaffListAssert hasAdditionalProperties(java.util.Map additionalProperties) {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // overrides the default error message with a more explicit one
@@ -53,13 +53,13 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList's code is equal to the given one.
-   * @param code the given code to compare the actual StaffList's code to.
+   * Verifies that the actual staffList's code is equal to the given one.
+   * @param code the given code to compare the actual staffList's code to.
    * @return this assertion object.
-   * @throws AssertionError - if the actual StaffList's code is not equal to the given one.
+   * @throws AssertionError - if the actual staffList's code is not equal to the given one.
    */
   public StaffListAssert hasCode(String code) {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // overrides the default error message with a more explicit one
@@ -76,13 +76,13 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList's data contains the given Datum elements.
-   * @param data the given elements that should be contained in actual StaffList's data.
+   * Verifies that the actual staffList's data contains the given Datum elements.
+   * @param data the given elements that should be contained in actual staffList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual StaffList's data does not contain all given Datum elements.
+   * @throws AssertionError if the actual staffList's data does not contain all given Datum elements.
    */
   public StaffListAssert hasData(Datum... data) {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -96,13 +96,13 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList's data contains <b>only<b> the given Datum elements and nothing else in whatever order.
-   * @param data the given elements that should be contained in actual StaffList's data.
+   * Verifies that the actual staffList's data contains <b>only<b> the given Datum elements and nothing else in whatever order.
+   * @param data the given elements that should be contained in actual staffList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual StaffList's data does not contain all given Datum elements.
+   * @throws AssertionError if the actual staffList's data does not contain all given Datum elements.
    */
   public StaffListAssert hasOnlyData(Datum... data) {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -116,14 +116,14 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList's data does not contain the given Datum elements.
+   * Verifies that the actual staffList's data does not contain the given Datum elements.
    *
-   * @param data the given elements that should not be in actual StaffList's data.
+   * @param data the given elements that should not be in actual staffList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual StaffList's data contains any given Datum elements.
+   * @throws AssertionError if the actual staffList's data contains any given Datum elements.
    */
   public StaffListAssert doesNotHaveData(Datum... data) {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -137,12 +137,12 @@ public class StaffListAssert extends AbstractAssert<StaffListAssert, StaffList> 
   }
 
   /**
-   * Verifies that the actual StaffList has no data.
+   * Verifies that the actual staffList has no data.
    * @return this assertion object.
-   * @throws AssertionError if the actual StaffList's data is not empty.
+   * @throws AssertionError if the actual staffList's data is not empty.
    */
   public StaffListAssert hasNoData() {
-    // check that actual StaffList we want to make assertions on is not null.
+    // check that actual staffList we want to make assertions on is not null.
     isNotNull();
 
     // we override the default error message with a more explicit one

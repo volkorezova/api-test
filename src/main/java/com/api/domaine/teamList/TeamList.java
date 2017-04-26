@@ -1,8 +1,7 @@
-package com.api.domaine.StaffList;
+package com.api.domaine.teamList;
 
 
 import com.fasterxml.jackson.annotation.*;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Map;
         "code",
         "data"
 })
-public class StaffList {
+public class TeamList {
 
     @JsonProperty("code")
     private String code;
@@ -25,16 +24,18 @@ public class StaffList {
 
     /**
      * No args constructor for use in serialization
+     *
      */
-    public StaffList() {
+    public TeamList() {
     }
 
     /**
+     *
      * @param data
      * @param code
      */
-    public StaffList(String code, List<Datum> data) {
-        super();
+    public TeamList(String code, List<Datum> data) {
+
         this.code = code;
         this.data = data;
     }
@@ -57,11 +58,6 @@ public class StaffList {
     @JsonProperty("data")
     public void setData(List<Datum> data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

@@ -1,4 +1,4 @@
-package FileWork;
+package fileWork;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
-package com.api.domaine.assertions.Credentials;
+package com.api.domaine.assertions.credentials;
 
-import com.api.domaine.Credentials.CredentialsForResetPass;
+import com.api.domaine.credentials.CredentialsForResetPass;
 import org.assertj.core.api.AbstractAssert;
 
 /**

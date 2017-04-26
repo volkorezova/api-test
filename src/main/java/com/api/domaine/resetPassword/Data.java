@@ -1,4 +1,4 @@
-package com.api.domaine.ResetPassword;
+package com.api.domaine.resetPassword;
 
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang.builder.ToStringBuilder;

@@ -1,6 +1,6 @@
 package com.api.test;
 
-import com.api.domaine.Credentials.CredentialsForSignIn;
+import com.api.domaine.credentials.CredentialsForSignIn;
 import com.api.domaine.CurrentUser;
 import com.api.domaine.UserUpdateCredentials;
 import com.api.domaine.UserUpdated;

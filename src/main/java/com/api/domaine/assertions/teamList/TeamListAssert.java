@@ -1,7 +1,7 @@
-package com.api.domaine.assertions.TeamList;
+package com.api.domaine.assertions.teamList;
 
-import com.api.domaine.TeamList.Datum;
-import com.api.domaine.TeamList.TeamList;
+import com.api.domaine.teamList.Datum;
+import com.api.domaine.teamList.TeamList;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.internal.Iterables;
 import org.assertj.core.util.Objects;
@@ -12,8 +12,8 @@ import org.assertj.core.util.Objects;
 public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
 
   /**
-   * Creates a new <code>{@link TeamListAssert}</code> to make assertions on actual TeamList.
-   * @param actual the TeamList we want to make assertions on.
+   * Creates a new <code>{@link TeamListAssert}</code> to make assertions on actual teamList.
+   * @param actual the teamList we want to make assertions on.
    */
   public TeamListAssert(TeamList actual) {
     super(actual, TeamListAssert.class);
@@ -22,7 +22,7 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   /**
    * An entry point for TeamListAssert to follow AssertJ standard <code>assertThat()</code> statements.<br>
    * With a static import, one can write directly: <code>assertThat(myTeamList)</code> and get specific assertion with code completion.
-   * @param actual the TeamList we want to make assertions on.
+   * @param actual the teamList we want to make assertions on.
    * @return a new <code>{@link TeamListAssert}</code>
    */
   public static TeamListAssert assertThat(TeamList actual) {
@@ -30,13 +30,13 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList's additionalProperties is equal to the given one.
-   * @param additionalProperties the given additionalProperties to compare the actual TeamList's additionalProperties to.
+   * Verifies that the actual teamList's additionalProperties is equal to the given one.
+   * @param additionalProperties the given additionalProperties to compare the actual teamList's additionalProperties to.
    * @return this assertion object.
-   * @throws AssertionError - if the actual TeamList's additionalProperties is not equal to the given one.
+   * @throws AssertionError - if the actual teamList's additionalProperties is not equal to the given one.
    */
   public TeamListAssert hasAdditionalProperties(java.util.Map additionalProperties) {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // overrides the default error message with a more explicit one
@@ -53,13 +53,13 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList's code is equal to the given one.
-   * @param code the given code to compare the actual TeamList's code to.
+   * Verifies that the actual teamList's code is equal to the given one.
+   * @param code the given code to compare the actual teamList's code to.
    * @return this assertion object.
-   * @throws AssertionError - if the actual TeamList's code is not equal to the given one.
+   * @throws AssertionError - if the actual teamList's code is not equal to the given one.
    */
   public TeamListAssert hasCode(String code) {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // overrides the default error message with a more explicit one
@@ -76,13 +76,13 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList's data contains the given Datum elements.
-   * @param data the given elements that should be contained in actual TeamList's data.
+   * Verifies that the actual teamList's data contains the given Datum elements.
+   * @param data the given elements that should be contained in actual teamList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual TeamList's data does not contain all given Datum elements.
+   * @throws AssertionError if the actual teamList's data does not contain all given Datum elements.
    */
   public TeamListAssert hasData(Datum... data) {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -96,13 +96,13 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList's data contains <b>only<b> the given Datum elements and nothing else in whatever order.
-   * @param data the given elements that should be contained in actual TeamList's data.
+   * Verifies that the actual teamList's data contains <b>only<b> the given Datum elements and nothing else in whatever order.
+   * @param data the given elements that should be contained in actual teamList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual TeamList's data does not contain all given Datum elements.
+   * @throws AssertionError if the actual teamList's data does not contain all given Datum elements.
    */
   public TeamListAssert hasOnlyData(Datum... data) {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -116,14 +116,14 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList's data does not contain the given Datum elements.
+   * Verifies that the actual teamList's data does not contain the given Datum elements.
    *
-   * @param data the given elements that should not be in actual TeamList's data.
+   * @param data the given elements that should not be in actual teamList's data.
    * @return this assertion object.
-   * @throws AssertionError if the actual TeamList's data contains any given Datum elements.
+   * @throws AssertionError if the actual teamList's data contains any given Datum elements.
    */
   public TeamListAssert doesNotHaveData(Datum... data) {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // check that given Datum varargs is not null.
@@ -137,12 +137,12 @@ public class TeamListAssert extends AbstractAssert<TeamListAssert, TeamList> {
   }
 
   /**
-   * Verifies that the actual TeamList has no data.
+   * Verifies that the actual teamList has no data.
    * @return this assertion object.
-   * @throws AssertionError if the actual TeamList's data is not empty.
+   * @throws AssertionError if the actual teamList's data is not empty.
    */
   public TeamListAssert hasNoData() {
-    // check that actual TeamList we want to make assertions on is not null.
+    // check that actual teamList we want to make assertions on is not null.
     isNotNull();
 
     // we override the default error message with a more explicit one

@@ -1,6 +1,6 @@
-package com.api.domaine.assertions.TeamList;
+package com.api.domaine.assertions.teamList;
 
-import com.api.domaine.TeamList.Datum;
+import com.api.domaine.teamList.Datum;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.util.Objects;
 

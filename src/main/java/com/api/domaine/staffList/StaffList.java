@@ -1,39 +1,40 @@
-package com.api.domaine.ResetPassword;
+package com.api.domaine.staffList;
+
 
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "code",
         "data"
 })
-public class Reset {
+public class StaffList {
 
     @JsonProperty("code")
     private String code;
     @JsonProperty("data")
-    private Data data;
+    private List<Datum> data = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * No args constructor for use in serialization
-     *
      */
-    public Reset() {
+    public StaffList() {
     }
 
     /**
-     *
      * @param data
      * @param code
      */
-    public Reset(String code, Data data) {
-
+    public StaffList(String code, List<Datum> data) {
+        super();
         this.code = code;
         this.data = data;
     }
@@ -49,12 +50,12 @@ public class Reset {
     }
 
     @JsonProperty("data")
-    public Data getData() {
+    public List<Datum> getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(Data data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 

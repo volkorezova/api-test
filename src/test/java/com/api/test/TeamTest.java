@@ -1,7 +1,7 @@
 package com.api.test;
 
-import com.api.domaine.Credentials.CredentialsForSignIn;
-import com.api.domaine.TeamList.TeamList;
+import com.api.domaine.credentials.CredentialsForSignIn;
+import com.api.domaine.teamList.TeamList;
 import com.api.domaine.api.SignInApi;
 import io.restassured.RestAssured;
 import org.testng.Assert;
@@ -64,7 +64,7 @@ public class TeamTest {
                 .extract()
                 .response()
                 .prettyPrint();
-        //.as(TeamList.class).getData().get(0).getFirstName();
+        //.as(teamList.class).getData().get(0).getFirstName();
 
     }
 
