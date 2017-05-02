@@ -1,18 +1,24 @@
 package com.api.test;
 
-import com.api.domaine.credentials.CredentialsForSignIn;
 import com.api.domaine.CurrentUser;
 import com.api.domaine.UserUpdateCredentials;
 import com.api.domaine.UserUpdated;
 import com.api.domaine.api.SignInApi;
 import com.api.domaine.assertions.CurrentUserAssert;
+import com.api.domaine.credentials.CredentialsForSignIn;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
+
+import java.io.PrintStream;
+import java.io.StringWriter;
 
 import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.given;
@@ -22,10 +28,12 @@ import static org.testng.Assert.assertTrue;
 @Title("These test-suite check various errors and functionality of SIGN IN process")
 public class SignInTest {
 
+
     @BeforeClass
     public void setup(){
         RestAssured.baseURI = "http://35.163.170.147:3000/";
         RestAssured.basePath = "v1";
+
     }
 
 
@@ -38,9 +46,7 @@ public class SignInTest {
         CurrentUser currentUser = SignInApi.signInAs(credentials);
         CurrentUserAssert.assertThat(currentUser).isNotNull();
 
-       /* FileWorker fil = new FileWorker();
-        fil.write("test.json", currentUser.toString());
-        saveHtmlAttach("test.json");*/
+
 
 
 
@@ -50,7 +56,14 @@ public class SignInTest {
     public void testSchemaCurUser() {
 
 
+        final StringWriter writerReqest= new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerReqest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
+        RestAssured.filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar));
         CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
+
         given()
                 .contentType("application/json")
                 .body(credentials)
@@ -60,8 +73,22 @@ public class SignInTest {
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/user-schema.json"));
 
-
+        request(writerReqest.toString());
+        response(writerResponse.toString());
     }
+
+
+    @Attachment (value = "Request log")
+    public byte[] request(String log){
+        return log.getBytes();
+    }
+
+    @Attachment (value = "Response log")
+    public byte[] response(String log){
+        return log.getBytes();
+    }
+
+
 
     @Severity(SeverityLevel.CRITICAL)
     @Title("Test checks the error msg on invalid EMAIL(email is not associated with any account")
@@ -80,6 +107,8 @@ public class SignInTest {
                 .and().assertThat().body("message", equalTo("Invalid email"));
         System.out.println("Passed??????");
 
+        //CurrentUser currentUser = SignInApi.signInAs(credentials);
+        //CurrentUserAssert.assertThat(currentUser).
     }
 
 
@@ -97,8 +126,6 @@ public class SignInTest {
                 .assertThat()
                 .statusCode(401)
                 .and().assertThat().body("message", equalTo("Invalid email"));
-
-
     }
 
 
@@ -117,9 +144,9 @@ public class SignInTest {
                 .then()
                 .assertThat()
                 .statusCode(401)
-                .and().assertThat().body("message", equalTo("Invalid passwordrreeghjjrkygvlhbjnlkml"));
-
-
+                .and()
+                .assertThat()
+                .body("message", equalTo("Invalid passwordrreeghjjrkygvlhbjnlkml"));
     }
 
 
@@ -131,7 +158,6 @@ public class SignInTest {
         CurrentUser currentUser = SignInApi.signInAs(credentials);
         String token = currentUser.getToken().toString();
         UserUpdateCredentials never = new UserUpdateCredentials(true);
-
 
        Boolean neverUpdated = given()
                 .contentType("application/json")
@@ -146,23 +172,12 @@ public class SignInTest {
                 .assertThat()
                 .extract().as(UserUpdated.class).getData().getNeverUpdated();
        assertTrue(neverUpdated);
-
-
-
     }
 
 
-  /*  @Attachment(value = "json", type = "text/html")
-    public static byte[] saveHtmlAttach(String attachName) {
-        try {
-            URL defaultImage = SignInTest.class.getResource("/test.html");
-            File imageFile = new File(defaultImage.toURI());
-            return toByteArray(imageFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new byte[0];
-    }*/
+
+
+
 
 }
 
