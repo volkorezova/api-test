@@ -28,10 +28,6 @@ import static org.testng.Assert.assertTrue;
 @Title("This test-suite check various errors and functionality of SIGN IN process")
 public class SignInTest {
 
-    final StringWriter writerRequest = new StringWriter();
-    final StringWriter writerResponse = new StringWriter();
-    final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
-    final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
 
 
 
@@ -43,15 +39,18 @@ public class SignInTest {
     }
 
 
-   @Attachment(value = "Request log")
-    public byte[] request(String log) {
+
+
+    @Attachment(value = "Request log")
+    public static byte[] request(String log) {
         return log.getBytes();
     }
 
     @Attachment(value = "Response log")
-    public byte[] response(String log) {
+    public static byte[] response(String log) {
         return log.getBytes();
     }
+
 
 
     @Severity(SeverityLevel.BLOCKER)
@@ -68,26 +67,37 @@ public class SignInTest {
     @Test
     public void testSchemaCurUser() {
 
-        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
+        CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
         given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
-                .contentType("application/json")
+        .contentType("application/json")
                 .body(credentials)
                 .when()
                 .post("/signin")
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/user-schema.json"));
-
         request(writerRequest.toString());
         response(writerResponse.toString());
+
     }
 
 
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Test checks the error msg on invalid EMAIL(email is not associated with any account")
+    @Title("111111111- Test checks the error msg on invalid EMAIL(email is not associated with any account")
     @Test
     public void testGetErrorOnIsNotAssociateEmail() {
+
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
 
         CredentialsForSignIn credentials = new CredentialsForSignIn("email@qqq.com", "1234456");
 
@@ -100,21 +110,29 @@ public class SignInTest {
                 .assertThat()
                 .statusCode(401)
                 .and().assertThat().body("message", equalTo("Invalid email"));
-        System.out.println("Passed??????");
+       // System.out.println("Passed??????");
 
         request(writerRequest.toString());
         response(writerResponse.toString());
+
+
     }
 
 
+
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Test checks the error msg on invalid EMAIL(invalid format)")
+    @Title("2222222  - Test checks the error msg on invalid EMAIL(invalid format)")
     @Test
     public void testGetErrorOnInvalEmail() {
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
         CredentialsForSignIn credentials = new CredentialsForSignIn("emailqqq.com", "1234456");
 
-        given().
-                 contentType("application/json")
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
+                 .contentType("application/json")
                 .body(credentials)
                 .when()
                 .post("/signin")
@@ -123,15 +141,24 @@ public class SignInTest {
                 .statusCode(401)
                 .and().assertThat().body("message", equalTo("Invalid email"));
 
+        request(writerRequest.toString());
+        response(writerResponse.toString());
+
     }
 
 
     @Severity(SeverityLevel.NORMAL)
-    @Title("Test checks the error msg on invalid PASSWORD")
+    @Title("33333 - Test checks the error msg on invalid PASSWORD")
     @Test
     public void testGetErrorOnInvalidPassword() {
+
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
         CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12344561111");
-        given().log().all()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .body(credentials)
                 .when()
@@ -143,22 +170,30 @@ public class SignInTest {
                 .assertThat()
                 .body("message", equalTo("Invalid passwordrreeghjjrkygvlhbjnlkml"));
 
-
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 
 
     @Severity(SeverityLevel.CRITICAL)
-    @Title("Test checks updating user on the end stage of SIGN IN process - neverUpdate field and status code")
+    @Title("44444444 - Test checks updating user on the end stage of SIGN IN process - neverUpdate field and status code")
     @Test
     public void testUserUpdated() {
+
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
+
         CredentialsForSignIn credentials = new CredentialsForSignIn("volkorezova@mail.com", "12345");
 
         CurrentUser currentUser = SignInApi.signInAs(credentials);
         String token = currentUser.getToken().toString();
         UserUpdateCredentials never = new UserUpdateCredentials(true);
 
-        Boolean neverUpdated = given()
+        Boolean neverUpdated = given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + token)
                 .body(never)
@@ -172,6 +207,8 @@ public class SignInTest {
                 .extract().as(UserUpdated.class).getData().getNeverUpdated();
         assertTrue(neverUpdated);
 
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
 
     }

@@ -5,9 +5,16 @@ import com.api.domaine.staffList.StaffList;
 import com.api.domaine.api.SignInApi;
 import com.api.domaine.assertions.staffList.DatumAssert;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Attachment;
+
+import java.io.PrintStream;
+import java.io.StringWriter;
 
 import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.given;
@@ -23,15 +30,29 @@ public class StaffTest {
         RestAssured.basePath = "v1";
     }
 
+    @Attachment(value = "Request log")
+    public static byte[] request(String log) {
+        return log.getBytes();
+    }
+
+    @Attachment(value = "Response log")
+    public static byte[] response(String log) {
+        return log.getBytes();
+    }
+
 
 
     @Test
     public void testGetAccessToStaffMembers(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
         CredentialsForSignIn credentialsForSignIn = new CredentialsForSignIn("volkorezova@mail.com", "12345");
         String token = SignInApi.signInAsAndGetToken(credentialsForSignIn);
 
-        given()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -39,17 +60,24 @@ public class StaffTest {
                 .then()
                 .assertThat()
                 .statusCode(200);
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 
     @Test
     public void testSchemaValidateStaff(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
         CredentialsForSignIn credentialsForSignIn = new CredentialsForSignIn("volkorezova@mail.com", "12345");
         String token = SignInApi.signInAsAndGetToken(credentialsForSignIn);
 
 
-        given()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -57,20 +85,25 @@ public class StaffTest {
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/staff-schema.json"));
-
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 
     @Test
     public  void testGetTypeStaffMembers(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
         CredentialsForSignIn credentialsForSignIn = new CredentialsForSignIn("volkorezova@mail.com", "12345");
         String token = SignInApi.signInAsAndGetToken(credentialsForSignIn);
 
         StaffList all  = new StaffList();
 
 
-        all = given()
+        all = given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -87,6 +120,9 @@ public class StaffTest {
             Assert.assertEquals(all.getData().get(i).getType(),"staff");
         }
 
+        request(writerRequest.toString());
+        response(writerResponse.toString());
+
     }
 
 
@@ -94,13 +130,18 @@ public class StaffTest {
     @Test
     public void testGetNewUser(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
         CredentialsForSignIn credentialsForSignIn = new CredentialsForSignIn("volkorezova@mail.com", "12345");
         String token = SignInApi.signInAsAndGetToken(credentialsForSignIn);
 
         StaffList all  = new StaffList();
 
 
-        all = given()
+        all = given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -110,12 +151,14 @@ public class StaffTest {
                 .response()
                 .as(StaffList.class);
 
+
         DatumAssert.assertThat(all.getData().get(0))
                 .hasEmail("letrghfbwkrebhd")
                 .hasAccessLevel(75)
                 .hasId("erwh,fdmsbjrn")
                 .hasPhoneNumber("regyfhbdcireufkhsbdhuorfd");
-
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 

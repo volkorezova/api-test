@@ -2,12 +2,19 @@ package com.api.test;
 
 import com.api.domaine.credentials.CredentialsForResetPass;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
+
+import java.io.PrintStream;
+import java.io.StringWriter;
 
 import static com.jayway.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.given;
@@ -24,14 +31,30 @@ public class ResetPassTest {
         RestAssured.basePath = "v1";
     }
 
+    @Attachment(value = "Request log")
+    public static byte[] request(String log) {
+        return log.getBytes();
+    }
+
+    @Attachment(value = "Response log")
+    public static byte[] response(String log) {
+        return log.getBytes();
+    }
+
+
     @Description("Test can reset password - check the status code 200")
     @Title("Can reset password 200 OK")
     @Severity(SeverityLevel.BLOCKER)
     @Test
     public void testCanResetPassword() {
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
+
         CredentialsForResetPass credentialsRes = new CredentialsForResetPass("volkorezova@mail.com");
-        given()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
@@ -40,6 +63,9 @@ public class ResetPassTest {
                 .assertThat()
                 .statusCode(200)
                 .and().assertThat().body("code", equalTo("OK"));
+        request(writerRequest.toString());
+        response(writerResponse.toString());
+
     }
 
 
@@ -51,8 +77,12 @@ public class ResetPassTest {
     @Test
     public void testGetErrorOnInvalidEmailResetPass(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
         CredentialsForResetPass credentialsRes = new CredentialsForResetPass("vol@mai.com");
-        given()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
@@ -61,6 +91,8 @@ public class ResetPassTest {
                 .assertThat()
                 .statusCode(400)
                 .and().assertThat().body("message", equalTo("User not found"));
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 
@@ -68,8 +100,12 @@ public class ResetPassTest {
     @Test
     public void testValidateUserSchemaOnResetPassword(){
 
+        final StringWriter writerRequest = new StringWriter();
+        final StringWriter writerResponse = new StringWriter();
+        final PrintStream requestVar = new PrintStream(new WriterOutputStream(writerRequest), true);
+        final PrintStream responseVar = new PrintStream(new WriterOutputStream(writerResponse), true);
         CredentialsForResetPass credentialsRes = new CredentialsForResetPass("volkorezova@mail.com");
-        given()
+        given().filters(new ResponseLoggingFilter(responseVar), new RequestLoggingFilter(requestVar))
                 .contentType("application/json")
                 .body(credentialsRes)
                 .when()
@@ -77,6 +113,8 @@ public class ResetPassTest {
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("schema-validator/userONreset-schema.json"));
+        request(writerRequest.toString());
+        response(writerResponse.toString());
 
     }
 }
